@@ -4,7 +4,3 @@
 
 [functions]
   directory = ""
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-  enabled = false
