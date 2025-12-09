@@ -1,6 +1,6 @@
 "use client"
-  
-import { useState, useEffect } from "react"
+
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import FirstScreen from "@/components/FirstScreen"
 import QuestionScreen from "@/components/QuestionScreen"
@@ -13,6 +13,9 @@ export default function ProposalSite() {
   const [currentScreen, setCurrentScreen] = useState("loader")
   const [isLoading, setIsLoading] = useState(true)
 
+  // ✅ Background Music Ref
+  const audioRef = useRef(null)
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
@@ -22,12 +25,34 @@ export default function ProposalSite() {
     return () => clearTimeout(timer)
   }, [])
 
+  // ✅ Background Music Play on First User Tap
+  useEffect(() => {
+    const playMusic = () => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.6
+        audioRef.current.play().catch(() => {})
+        window.removeEventListener("click", playMusic)
+      }
+    }
+
+    window.addEventListener("click", playMusic)
+
+    return () => {
+      window.removeEventListener("click", playMusic)
+    }
+  }, [])
+
   const nextScreen = (screen) => {
     setCurrentScreen(screen)
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-fuchsia-950/30 via-black/70 to-rose-950/40 relative overflow-hidden">
+
+      {/* ✅ Background Music */}
+      <audio ref={audioRef} loop>
+        <source src="/bg.mp3" type="audio/mpeg" />
+      </audio>
 
       <AnimatePresence mode="wait">
         {isLoading && <CuteLoader key="loader" onComplete={() => setCurrentScreen("first")} />}
@@ -59,7 +84,7 @@ export default function ProposalSite() {
         {currentScreen === "final" && <FinalScreen key="final" />}
       </AnimatePresence>
 
-      {/* Watermark */}
+      {/* ✅ Watermark */}
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
