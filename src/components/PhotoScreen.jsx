@@ -59,7 +59,8 @@ export default function PhotoScreen({ onNext }) {
                 transition={{ delay: 0.3, duration: 1 }}
             >
                 <h1 className="text-2xl md:text-3xl text-pink-200 leading-relaxed mb-4 font-semibold">
-                    From the first day I met you, life became <span className="text-pink-400 font-bold">brighter...</span>
+                    You’re my favorite person…
+                    <span className="text-pink-400 font-bold">My best friend and my biggest crush</span>
                 </h1>
 
                 <motion.p
@@ -68,7 +69,7 @@ export default function PhotoScreen({ onNext }) {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
                 >
-                    You've made every moment so special 💕
+                    This is for you Ishuuu
                 </motion.p>
             </motion.div>
 
