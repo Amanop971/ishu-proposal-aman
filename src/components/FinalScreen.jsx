@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Heart } from "lucide-react"
 import confetti from "canvas-confetti"
 
+const instaDM = "https://instagram.com/direct/t/Fakemiles22" 
+// ✅ REPLACE YOUR_USERNAME with your real Insta username
+
 export default function FinalScreen() {
   const [cardOpen, setCardOpen] = useState(false)
   const [displayedText, setDisplayedText] = useState("")
@@ -29,14 +32,11 @@ Whatever the future holds,
 having you in my life already feels like the most beautiful thing to me. 💗`
 
   useEffect(() => {
-    if (cardOpen) {
-      setDisplayedText("")
-      setTypingComplete(false)
-
+    if (cardOpen && !typingComplete) {
       let currentIndex = 0
       const typingInterval = setInterval(() => {
         if (currentIndex < proposalMessage.length) {
-          setDisplayedText((prev) => prev + proposalMessage[currentIndex])
+          setDisplayedText(proposalMessage.slice(0, currentIndex + 1))
           currentIndex++
 
           if (messageRef.current) {
@@ -50,7 +50,7 @@ having you in my life already feels like the most beautiful thing to me. 💗`
 
       return () => clearInterval(typingInterval)
     }
-  }, [cardOpen])
+  }, [cardOpen, proposalMessage])
 
   const handleYesForever = () => {
     setShowOverlay(true)
@@ -72,6 +72,11 @@ having you in my life already feels like the most beautiful thing to me. 💗`
     fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 })
     fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 })
     fire(0.1, { spread: 120, startVelocity: 45 })
+
+    // ✅ REDIRECT AFTER 4 SECONDS — SCREEN STAYS SAME
+    setTimeout(() => {
+      window.location.href = instaDM
+    }, 4000)
   }
 
   return (
@@ -111,7 +116,7 @@ having you in my life already feels like the most beautiful thing to me. 💗`
           ) : (
             <motion.div
               key="open"
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
@@ -120,7 +125,11 @@ having you in my life already feels like the most beautiful thing to me. 💗`
                   <div className="text-pink-200 leading-relaxed whitespace-pre-line">
                     {displayedText}
                     {!typingComplete && (
-                      <motion.span className="text-pink-400" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 0.8, repeat: Infinity }}>
+                      <motion.span
+                        className="text-pink-400"
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
+                      >
                         |
                       </motion.span>
                     )}
@@ -134,7 +143,7 @@ having you in my life already feels like the most beautiful thing to me. 💗`
         {typingComplete && (
           <motion.button
             onClick={handleYesForever}
-            className="mt-10 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 text-xl font-semibold rounded-full transition-all hover:scale-105 shadow-2xl flex items-center justify-center mx-auto"
+            className="mt-10 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-4 text-xl font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-2xl flex items-center justify-center mx-auto"
           >
             <Heart className="w-5 h-5 mr-2 fill-current" />
             Yes, forever!
@@ -144,15 +153,67 @@ having you in my life already feels like the most beautiful thing to me. 💗`
       </div>
 
       {showOverlay && (
-        <motion.div className="fixed inset-0 bg-black/90 backdrop-blur-3xl flex items-center justify-center z-50">
-          <div className="text-center">
-            <Heart className="w-32 h-32 text-pink-500 fill-current mx-auto animate-pulse" />
-            <h1 className="mt-6 text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-              Forever 💗
-            </h1>
-          </div>
+        <motion.div
+          className="fixed inset-0 bg-black/90 backdrop-blur-3xl flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            className="text-center max-w-md mx-auto px-6"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 1 }}
+          >
+            <div className="mb-8 relative">
+              <motion.div className="relative w-32 h-32 mx-auto">
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ x: -45, rotate: -35 }}
+                  animate={{ x: 1, rotate: 0 }}
+                  transition={{ delay: 0.5, duration: 1.5 }}
+                >
+                  <Heart className="w-32 h-32 text-pink-500 fill-current" style={{ clipPath: "inset(0 50% 0 0)" }} />
+                </motion.div>
+
+                <motion.div
+                  className="absolute inset-0 mr-1"
+                  initial={{ x: 45, rotate: 35 }}
+                  animate={{ x: 0, rotate: 0 }}
+                  transition={{ delay: 0.5, duration: 1.5 }}
+                >
+                  <Heart className="w-32 h-32 text-pink-500 fill-current" style={{ clipPath: "inset(0 0 0 50%)" }} />
+                </motion.div>
+
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: [1, 1.2, 1], opacity: 1 }}
+                  transition={{
+                    delay: 1.8,
+                    scale: { delay: 2.3, duration: 1.5, repeat: Infinity },
+                  }}
+                >
+                  <Heart className="w-32 h-32 text-pink-500 fill-current" />
+                </motion.div>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 1 }}
+            >
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                Let's make it worth it...
+              </h1>
+              <motion.p className="text-3xl md:text-4xl text-pink-300 font-semibold">
+                Forever✨
+              </motion.p>
+            </motion.div>
+          </motion.div>
         </motion.div>
       )}
     </motion.div>
   )
-}
+                  }
