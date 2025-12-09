@@ -47,7 +47,7 @@ export default function ProposalSite() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-fuchsia-950/30 via-black/70 to-rose-950/40 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-black via-red-900 to-fuchsia-900 relative overflow-hidden">
 
       {/* ✅ Background Music */}
       <audio ref={audioRef} loop>
