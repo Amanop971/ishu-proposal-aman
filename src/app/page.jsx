@@ -51,7 +51,7 @@ export default function ProposalSite() {
 
       {/* ✅ Background Music */}
       <audio ref={audioRef} loop>
-        <source src="/bg.mp3" type="audio/mpeg" />
+        <source src="/audio/bg.mp3" type="audio/mpeg" />
       </audio>
 
       <AnimatePresence mode="wait">
