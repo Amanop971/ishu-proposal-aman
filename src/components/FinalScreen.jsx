@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Heart } from "lucide-react"
 import confetti from "canvas-confetti"
 
-const instaDM = "https://instagram.com/direct/t/Fakemiles22" 
-// ✅ REPLACE YOUR_USERNAME with your real Insta username
+const instaDM = "https://instagram.com/direct/t/Fakemiles22"
 
 export default function FinalScreen() {
   const [cardOpen, setCardOpen] = useState(false)
@@ -29,7 +28,8 @@ And you are the only person I value the most in my life.
 You make me smile, you make my heart race, and you make me want to be a better version of myself.  
 
 Whatever the future holds,  
-having you in my life already feels like the most beautiful thing to me. 💗`
+having you in my life already feels like the most beautiful thing to me. 💗  
+`
 
   useEffect(() => {
     if (cardOpen && !typingComplete) {
@@ -73,7 +73,6 @@ having you in my life already feels like the most beautiful thing to me. 💗`
     fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 })
     fire(0.1, { spread: 120, startVelocity: 45 })
 
-    // ✅ REDIRECT AFTER 4 SECONDS — SCREEN STAYS SAME
     setTimeout(() => {
       window.location.href = instaDM
     }, 4000)
@@ -124,14 +123,11 @@ having you in my life already feels like the most beautiful thing to me. 💗`
                 <div ref={messageRef} className="h-80 overflow-y-auto text-left pr-2.5">
                   <div className="text-pink-200 leading-relaxed whitespace-pre-line">
                     {displayedText}
-                    {!typingComplete && (
-                      <motion.span
-                        className="text-pink-400"
-                        animate={{ opacity: [0, 1, 0] }}
-                        transition={{ duration: 0.8, repeat: Infinity }}
-                      >
-                        |
-                      </motion.span>
+
+                    {typingComplete && (
+                      <span className="block text-3xl md:text-4xl font-bold text-pink-400 mt-6 text-center">
+                        WILL YOU BE MINE?
+                      </span>
                     )}
                   </div>
                 </div>
@@ -216,4 +212,4 @@ having you in my life already feels like the most beautiful thing to me. 💗`
       )}
     </motion.div>
   )
-                  }
+}
