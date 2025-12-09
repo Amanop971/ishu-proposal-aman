@@ -75,7 +75,7 @@ export default function BalloonsScreen({ onNext }) {
         transition={{ delay: 0.5, duration: 1 }}
       >
         <h1 className="text-3xl md:text-4xl text-pink-200 leading-tight font-semibold">
-          This is what I want to say for <span className="text-pink-400 font-bold">so long...</span>
+          I’ve said it many times before… <span className="text-pink-400 font-bold">and I’ll keep saying it forever.</span>
         </h1>
         <motion.p
           className="text-pink-300/80 text-lg mt-4 italic"
